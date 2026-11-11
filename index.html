@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio – Abdel-Aziz Diaby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --g:#2f3d33; --g2:#5b7a63; --g3:#a9c4ae; --soft:#eef3ef; --ink:#1e2421; --mut:#56635a; --line:#d9e3db; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { font-family:Inter, "Helvetica Neue", Arial, sans-serif; color:var(--ink); background:#fafbfa; line-height:1.6; font-size:16px; }
+  img { display:block; max-width:100%; }
+  a { color:var(--g2); }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
+
+  /* Haut de page */
+  header.hero { background:var(--g); color:#fff; padding:64px 0 56px; }
+  .hero h1 { font-size:clamp(32px,5vw,46px); line-height:1.1; font-weight:700; }
+  .hero .role { color:#cfe0d2; font-size:clamp(16px,2.2vw,19px); margin-top:10px; }
+  .hero p.lead { max-width:720px; margin-top:22px; color:#e4ece6; }
+  .hero .contact { display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
+  .hero .contact a, .hero .contact span { color:#fff; text-decoration:none; font-size:14px; padding:8px 14px; border:1px solid #5b7a63; border-radius:20px; }
+  .hero .contact a:hover { background:#3c4d41; }
+
+  /* Sommaire des projets */
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:-30px; }
+  .card { background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 6px 24px rgba(20,40,25,.10); text-decoration:none; color:inherit; display:flex; flex-direction:column; transition:transform .15s; }
+  .card:hover { transform:translateY(-3px); }
+  .card img { height:180px; width:100%; object-fit:cover; }
+  .card .body { padding:16px 18px 18px; }
+  .card .tag { font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--g2); }
+  .card h3 { font-size:17px; line-height:1.3; margin-top:4px; color:var(--g); }
+  .card .more { margin-top:8px; font-size:14px; color:var(--mut); }
+
+  /* Projets */
+  section.proj { padding:70px 0 20px; scroll-margin-top:10px; }
+  .proj-head .num { font-size:13px; font-weight:700; letter-spacing:2px; color:var(--g2); text-transform:uppercase; }
+  .proj-head h2 { font-size:clamp(25px,3.6vw,32px); line-height:1.2; color:var(--g); margin-top:6px; }
+  .meta { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .meta span { background:var(--soft); color:var(--g); font-size:13.5px; padding:4px 12px; border-radius:14px; }
+  .intro { display:grid; grid-template-columns:1.5fr 1fr; gap:34px; margin-top:26px; align-items:start; }
+  .intro p { margin-bottom:12px; }
+  .facts { background:#fff; border:1px solid var(--line); border-radius:10px; padding:18px 20px; }
+  .facts h4 { font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:var(--g2); margin-bottom:10px; }
+  .facts ul { list-style:none; }
+  .facts li { padding:6px 0; border-bottom:1px solid #eef2ef; font-size:15px; display:flex; justify-content:space-between; gap:12px; }
+  .facts li:last-child { border-bottom:none; }
+  .facts li b { color:var(--g); font-weight:600; text-align:right; }
+  h3.sub { font-size:19px; color:var(--g); margin:38px 0 6px; padding-bottom:6px; border-bottom:2px solid var(--g); }
+  p.subintro { color:var(--mut); margin-bottom:6px; }
+
+  .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:18px 0 6px; }
+  .step { background:#fff; border:1px solid var(--line); border-top:3px solid var(--g2); border-radius:0 0 8px 8px; padding:12px 14px; }
+  .step .s { font-size:12px; font-weight:700; color:var(--g2); }
+  .step b { display:block; color:var(--g); margin:2px 0 4px; }
+  .step p { font-size:14px; color:var(--mut); line-height:1.45; }
+
+  .gallery { display:grid; gap:14px; margin-top:16px; }
+  .g2 { grid-template-columns:repeat(2,1fr); }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  .g4 { grid-template-columns:repeat(4,1fr); }
+  figure { margin:0; }
+  figure .ph { background:#e7ece8; border-radius:8px; overflow:hidden; cursor:zoom-in; }
+  figure img { width:100%; height:100%; object-fit:cover; transition:transform .25s; }
+  figure .ph:hover img { transform:scale(1.03); }
+  .tall .ph { aspect-ratio:3/4; }
+  .wide .ph { aspect-ratio:4/3; }
+  .plan .ph { aspect-ratio:auto; background:#fff; border:1px solid var(--line); }
+  .plan img { object-fit:contain; }
+  figcaption { font-size:13.5px; color:var(--mut); margin-top:7px; line-height:1.4; }
+  figcaption b { color:var(--g); font-weight:600; }
+
+  .btn { display:inline-flex; align-items:center; gap:8px; margin-top:20px; background:var(--g); color:#fff; text-decoration:none; padding:11px 18px; border-radius:8px; font-weight:600; font-size:15px; }
+  .btn:hover { background:#3c4d41; }
+  .learned { background:var(--soft); border-left:4px solid var(--g2); border-radius:0 8px 8px 0; padding:14px 18px; margin-top:24px; }
+  .learned b { color:var(--g); }
+  .learned ul { margin:6px 0 0 18px; }
+  .learned li { margin-bottom:3px; }
+
+  hr.sep { border:none; border-top:1px solid var(--line); margin-top:50px; }
+  footer { background:var(--g); color:#cfe0d2; text-align:center; padding:34px 20px; margin-top:70px; font-size:14px; }
+  footer a { color:#fff; }
+
+  /* Visionneuse */
+  .lb { position:fixed; inset:0; background:rgba(15,22,17,.93); display:none; align-items:center; justify-content:center; flex-direction:column; z-index:50; padding:20px; }
+  .lb.on { display:flex; }
+  .lb img { max-width:94vw; max-height:82vh; object-fit:contain; border-radius:4px; }
+  .lb .cap { color:#dfe8e1; margin-top:12px; font-size:14px; text-align:center; max-width:800px; }
+  .lb button { position:absolute; background:none; border:none; color:#fff; font-size:34px; cursor:pointer; padding:10px 16px; }
+  .lb .x { top:10px; right:14px; }
+  .lb .prev { left:6px; top:50%; transform:translateY(-50%); }
+  .lb .next { right:6px; top:50%; transform:translateY(-50%); }
+
+  @media (max-width:860px) {
+    .cards { grid-template-columns:1fr; margin-top:-24px; }
+    .card img { height:170px; }
+    .intro { grid-template-columns:1fr; gap:20px; }
+    .steps { grid-template-columns:repeat(2,1fr); }
+    .g3, .g4 { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:520px) {
+    .g2.plans { grid-template-columns:1fr; }
+    header.hero { padding:44px 0 50px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Abdel-Aziz Diaby</h1>
+    <div class="role">Étudiant en génie industriel · Polytechnique Montréal</div>
+    <p class="lead">Je m'intéresse à l'optimisation des processus, à la chaîne d'approvisionnement et à l'aéronautique. Voici trois projets qui montrent ce que j'ai fait sur le terrain, en cours et en société technique. Je suis à la recherche d'un stage pour l'été 2027.</p>
+    <div class="contact">
+      <span>abdelaziz.dby@gmail.com</span>
+      <a href="https://www.linkedin.com/in/abdel-aziz-diaby-85391832a" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="cards">
+    <a class="card" href="#stationnement">
+      <img src="stat-3.jpg" alt="">
+      <div class="body"><div class="tag">Projet de cours</div><h3>Conception d'un stationnement commercial</h3><div class="more">AutoCAD · QGIS · Hiver 2026</div></div>
+    </a>
+    <a class="card" href="#ageroute">
+      <img src="ech-1.jpg" alt="" style="object-position:center 40%">
+      <div class="body"><div class="tag">Stage</div><h3>Projet des 3 échangeurs d'Abidjan</h3><div class="more">AGEROUTE · Été 2026</div></div>
+    </a>
+    <a class="card" href="#fusee">
+      <img src="fusee-lancement.jpg" alt="">
+      <div class="body"><div class="tag">Société technique</div><h3>Mini-fusée d'intégration</h3><div class="more">Oronos · Ciel d'Octobre 2026</div></div>
+    </a>
+  </nav>
+
+  <!-- ===================== PROJET 1 ===================== -->
+  <section class="proj" id="stationnement">
+    <div class="proj-head">
+      <div class="num">Projet 01 · Projet de cours</div>
+      <h2>Conception d'un stationnement commercial au Carrefour Laval</h2>
+      <div class="meta"><span>MEC1515 – DAO en ingénierie</span><span>Polytechnique Montréal</span><span>Hiver 2026</span><span>AutoCAD</span><span>QGIS</span></div>
+    </div>
+    <div class="intro">
+      <div>
+        <p>Dans le cadre du cours de dessin assisté par ordinateur, nous avons modélisé le stationnement d'un bâtiment commercial situé près du Carrefour Laval, de l'étude du site jusqu'au plan civil final.</p>
+        <p>Le projet s'est fait en trois planches : une carte de localisation du site, une carte QGIS construite à partir d'un ensemble de données ouvertes (réseau de pistes cyclables et piétonnières), puis le plan civil du stationnement sur AutoCAD, avec les cases, les voies de circulation, les zones gazonnées, les trottoirs et le passage piétons.</p>
+      </div>
+      <aside class="facts">
+        <h4>En bref</h4>
+        <ul>
+          <li>Livrables <b>3 planches</b></li>
+          <li>Système de coordonnées <b>NAD83 / MTM8</b></li>
+          <li>Échelle des cartes <b>1:20 000</b></li>
+          <li>Échelle du plan civil <b>1:500</b></li>
+          <li>Case de stationnement <b>2,5 m × 6 m</b></li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="gallery g2 plans">
+      <figure class="plan"><div class="ph"><img src="stat-1.jpg" alt="Carte de localisation du site"></div><figcaption><b>Planche 1</b> · Localisation du site au Carrefour Laval</figcaption></figure>
+      <figure class="plan"><div class="ph"><img src="stat-2.jpg" alt="Carte QGIS des pistes cyclables"></div><figcaption><b>Planche 2</b> · Carte QGIS avec le réseau de pistes cyclables et piétonnières</figcaption></figure>
+    </div>
+    <div class="gallery">
+      <figure class="plan"><div class="ph"><img src="stat-3.jpg" alt="Plan civil AutoCAD du stationnement"></div><figcaption><b>Planche 3</b> · Plan civil du stationnement réalisé sur AutoCAD (1:500)</figcaption></figure>
+    </div>
+
+    <div class="learned"><b>Ce que ce projet m'a apporté</b>
+      <ul>
+        <li>Planifier un projet en équipe et respecter un échéancier jusqu'au rendu final</li>
+        <li>Produire des plans normalisés (cartouche, échelle, légende) sur AutoCAD</li>
+        <li>Exploiter un jeu de données géographiques et le représenter clairement sur QGIS</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ===================== PROJET 2 ===================== -->
+  <section class="proj" id="ageroute">
+    <div class="proj-head">
+      <div class="num">Projet 02 · Stage</div>
+      <h2>Stage en gestion de projet de construction : le projet des 3 échangeurs</h2>
+      <div class="meta"><span>AGEROUTE</span><span>Abidjan, Côte d'Ivoire</span><span>Mai – Août 2026</span><span>Suivi de travaux</span></div>
+    </div>
+    <div class="intro">
+      <div>
+        <p>J'ai effectué mon stage à l'AGEROUTE (Agence de gestion des routes) sur le projet des 3 échangeurs d'Abidjan, un chantier d'envergure qui prépare notamment l'arrivée du futur Bus Rapid Transit (BRT) de la ville.</p>
+        <p>Mon rôle consistait à suivre l'avancement des travaux sur le terrain, à comparer l'avancement avec l'échéancier prévu et à participer aux réunions de chantier avec les différents intervenants.</p>
+      </div>
+      <aside class="facts">
+        <h4>En bref</h4>
+        <ul>
+          <li>Poste <b>Stagiaire en gestion de projet</b></li>
+          <li>Durée <b>4 mois</b></li>
+          <li>Ouvrages <b>3 échangeurs</b></li>
+          <li>Lien <b>Futur BRT d'Abidjan</b></li>
+        </ul>
+      </aside>
+    </div>
+
+    <h3 class="sub">Un des échangeurs en construction</h3>
+    <p class="subintro">Photos prises sur le chantier pendant mon stage.</p>
+    <div class="gallery g3">
+      <figure class="tall"><div class="ph"><img src="ech-1.jpg" alt=""></div><figcaption>Vue d'ensemble de l'ouvrage au-dessus de la circulation</figcaption></figure>
+      <figure class="tall"><div class="ph"><img src="ech-2.jpg" alt=""></div><figcaption>Sous-face du tablier : poutres métalliques et dalle en béton</figcaption></figure>
+      <figure class="tall"><div class="ph"><img src="ech-3.jpg" alt=""></div><figcaption>Piles en béton et structure porteuse du tablier</figcaption></figure>
+    </div>
+
+    <h3 class="sub">Zoom sur une opération : la pose de la couche de roulement en BBSG</h3>
+    <p class="subintro">J'ai rédigé un compte rendu sur la mise en œuvre du béton bitumineux semi-grenu (BBSG 0/14, classe 3) sur les contre-allées de l'échangeur de la Palmeraie. Les grandes étapes :</p>
+    <div class="steps">
+      <div class="step"><div class="s">01</div><b>Fabrication</b><p>Enrobé produit à chaud en centrale, entre 150 et 170 °C.</p></div>
+      <div class="step"><div class="s">02</div><b>Transport</b><p>Camions-bennes bâchés pour garder l'enrobé à température.</p></div>
+      <div class="step"><div class="s">03</div><b>Répandage</b><p>Couche d'accrochage (ECR 65), puis finisseur ; enrobé à 130 °C minimum.</p></div>
+      <div class="step"><div class="s">04</div><b>Compactage</b><p>Plusieurs compacteurs, à terminer avant que l'enrobé passe sous 110 °C.</p></div>
+    </div>
+    <div class="gallery g4">
+      <figure class="tall"><div class="ph"><img src="bbsg-1.jpg" alt=""></div><figcaption>Pulvérisation manuelle de la couche d'accrochage</figcaption></figure>
+      <figure class="tall"><div class="ph"><img src="bbsg-2.jpg" alt=""></div><figcaption>Contrôle du dosage d'ECR 65 par pesée</figcaption></figure>
+      <figure class="tall"><div class="ph"><img src="bbsg-3.jpg" alt=""></div><figcaption>Pulvérisation de l'ECR 65 au camion-bouille</figcaption></figure>
+      <figure class="tall"><div class="ph"><img src="bbsg-5.jpg" alt=""></div><figcaption>Contrôle de la température de l'enrobé</figcaption></figure>
+      <figure class="wide" style="grid-column:span 2"><div class="ph"><img src="bbsg-4.jpg" alt=""></div><figcaption>Répandage à l'aide du camion et du finisseur</figcaption></figure>
+      <figure class="wide" style="grid-column:span 2"><div class="ph"><img src="bbsg-7.jpg" alt=""></div><figcaption>Atelier de compactage derrière le finisseur</figcaption></figure>
+    </div>
+
+    <div class="learned"><b>Ce que ce stage m'a apporté</b>
+      <ul>
+        <li>Voir de près comment un grand chantier est coordonné entre plusieurs équipes et engins</li>
+        <li>Comprendre l'importance des contrôles qualité (dosages, températures) à chaque étape</li>
+        <li>Rédiger un compte rendu technique clair à partir d'observations sur le terrain</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- ===================== PROJET 3 ===================== -->
+  <section class="proj" id="fusee">
+    <div class="proj-head">
+      <div class="num">Projet 03 · Société technique</div>
+      <h2>Conception et construction d'une mini-fusée d'intégration</h2>
+      <div class="meta"><span>Oronos Polytechnique Montréal</span><span>Équipe aérostructure</span><span>Automne 2026</span><span>OpenRocket</span></div>
+    </div>
+    <div class="intro">
+      <div>
+        <p>Pour mon intégration à Oronos, la société technique de fusées de Polytechnique, j'ai conçu et construit ma propre mini-fusée, qui a décollé lors de Ciel d'Octobre.</p>
+        <p>J'ai d'abord modélisé la fusée sur OpenRocket pour valider sa stabilité et sa masse avec le moteur choisi, puis je l'ai assemblée et peinte à l'atelier : ogive, tube corps, coupleur, ailerons et compartiment pour l'altimètre et les batteries.</p>
+      </div>
+      <aside class="facts">
+        <h4>Caractéristiques (OpenRocket)</h4>
+        <ul>
+          <li>Longueur <b>64,5 cm</b></li>
+          <li>Diamètre max. <b>5 cm</b></li>
+          <li>Masse sans moteur <b>211 g</b></li>
+          <li>Masse avec moteur <b>339 g</b></li>
+          <li>Moteur <b>G80T-13</b></li>
+          <li>Stabilité <b>4,3 calibres</b></li>
+        </ul>
+      </aside>
+    </div>
+
+    <h3 class="sub">Conception sur OpenRocket</h3>
+    <div class="gallery">
+      <figure class="plan"><div class="ph"><img src="fusee-openrocket.jpg" alt="Modèle OpenRocket de la fusée"></div><figcaption>Modèle de la fusée : composants, centre de gravité (CG à 30,8 cm) et centre de pression (CP à 52,3 cm)</figcaption></figure>
+    </div>
+
+    <h3 class="sub">Construction et peinture</h3>
+    <div class="gallery g4">
+      <figure class="tall"><div class="ph"><img src="fusee-pieces.jpg" alt=""></div><figcaption>Pièces en cours de peinture : tube et ailerons, coupleur, ogive</figcaption></figure>
+      <figure class="tall"><div class="ph"><img src="fusee-complete.jpg" alt=""></div><figcaption>Fusée assemblée</figcaption></figure>
+      <figure class="tall"><div class="ph"><img src="fusee-ogive.jpg" alt=""></div><figcaption>Ogive et partie haute du tube</figcaption></figure>
+      <figure class="tall"><div class="ph"><img src="fusee-ailerons.jpg" alt=""></div><figcaption>Ailerons fixés à la base du tube</figcaption></figure>
+    </div>
+
+    <h3 class="sub">Lancement à Ciel d'Octobre</h3>
+    <div class="gallery">
+      <figure class="wide"><div class="ph" style="aspect-ratio:16/9"><img src="fusee-lancement.jpg" alt=""></div><figcaption>Décollage lors de Ciel d'Octobre</figcaption></figure>
+    </div>
+
+    <div class="learned"><b>Ce que ce projet m'a apporté</b>
+      <ul>
+        <li>Passer d'une modélisation numérique à un objet réel qui vole</li>
+        <li>Comprendre les notions de base en aérospatiale : stabilité, centre de gravité, centre de pression</li>
+        <li>Travailler à l'atelier avec les méthodes et les règles de sécurité d'une société technique</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<footer>
+  Abdel-Aziz Diaby · Étudiant en génie industriel, Polytechnique Montréal<br>
+  abdelaziz.dby@gmail.com · <a href="https://www.linkedin.com/in/abdel-aziz-diaby-85391832a" target="_blank" rel="noopener">LinkedIn</a><br><span style="font-size:12px;opacity:.7">Mis à jour le 11 novembre 2026</span>
+</footer>
+
+<div class="lb" id="lb">
+  <button class="x" aria-label="Fermer">×</button>
+  <button class="prev" aria-label="Précédente">‹</button>
+  <img alt="">
+  <div class="cap"></div>
+  <button class="next" aria-label="Suivante">›</button>
+</div>
+
+<script>
+(function(){
+  var figs = Array.prototype.slice.call(document.querySelectorAll('section.proj figure'));
+  var lb = document.getElementById('lb'), im = lb.querySelector('img'), cap = lb.querySelector('.cap'), i = 0;
+  function show(n){ i = (n + figs.length) % figs.length; var f = figs[i];
+    im.src = f.querySelector('img').src; var c = f.querySelector('figcaption'); cap.textContent = c ? c.textContent : ''; lb.classList.add('on'); }
+  figs.forEach(function(f, n){ f.querySelector('.ph').addEventListener('click', function(){ show(n); }); });
+  lb.querySelector('.x').onclick = function(){ lb.classList.remove('on'); };
+  lb.querySelector('.prev').onclick = function(e){ e.stopPropagation(); show(i-1); };
+  lb.querySelector('.next').onclick = function(e){ e.stopPropagation(); show(i+1); };
+  lb.addEventListener('click', function(e){ if (e.target === lb) lb.classList.remove('on'); });
+  document.addEventListener('keydown', function(e){ if(!lb.classList.contains('on')) return;
+    if(e.key==='Escape') lb.classList.remove('on'); if(e.key==='ArrowLeft') show(i-1); if(e.key==='ArrowRight') show(i+1); });
+})();
+</script>
+</body>
+</html>
